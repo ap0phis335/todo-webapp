@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Sign up — Flow{% endblock %}
+{% block content %}
+<section class="auth">
+  <form class="auth__card glass reveal in" method="post">
+    <h2>Create your account</h2>
+    <p class="muted">Takes about 20 seconds.</p>
+    <label>Name
+      <input name="name" required autofocus value="{{ name or '' }}">
+    </label>
+    <label>Email
+      <input name="email" type="email" required value="{{ email or '' }}">
+    </label>
+    <label>Password
+      <input name="password" type="password" required minlength="6" placeholder="Min 6 characters">
+    </label>
+    <button class="btn btn--primary btn--lg" type="submit">Create account</button>
+    <p class="muted center">Already have one? <a href="{{ url_for('login') }}">Log in →</a></p>
+  </form>
+</section>
+{% endblock %}

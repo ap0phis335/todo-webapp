@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{% block title %}Flow — Todo{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+<div class="bg-orbs" aria-hidden="true">
+  <span class="orb orb--1"></span>
+  <span class="orb orb--2"></span>
+  <span class="orb orb--3"></span>
+</div>
+
+<header class="nav">
+  <a href="{{ url_for('landing') }}" class="brand">
+    <span class="brand__mark">◆</span> Flow
+  </a>
+  <nav class="nav__links">
+    {% if session.user_id %}
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('logout') }}" class="btn btn--ghost">Log out</a>
+    {% else %}
+      <a href="{{ url_for('login') }}">Log in</a>
+      <a href="{{ url_for('signup') }}" class="btn btn--primary">Get started</a>
+    {% endif %}
+  </nav>
+</header>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flashes">
+      {% for cat, msg in messages %}<div class="flash flash--{{cat}}">{{msg}}</div>{% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<main>{% block content %}{% endblock %}</main>
+
+<footer class="foot">
+  <span>© {{ 2025 }} Flow · Built with Flask</span>
+</footer>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

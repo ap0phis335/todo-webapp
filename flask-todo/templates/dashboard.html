@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Flow{% endblock %}
+{% block content %}
+<section class="dash">
+  <header class="dash__head reveal in">
+    <div>
+      <h1>Hi, {{ user.name.split(' ')[0] }} 👋</h1>
+      <p class="muted">Let's make today count.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><span id="stat-total">0</span><small>Total</small></div>
+      <div class="stat"><span id="stat-done">0</span><small>Done</small></div>
+      <div class="stat"><span id="stat-open">0</span><small>Open</small></div>
+    </div>
+  </header>
+
+  <form id="todo-form" class="todo-form glass reveal in" autocomplete="off">
+    <input id="todo-input" type="text" placeholder="What needs to get done?" required maxlength="255">
+    <select id="todo-priority" aria-label="Priority">
+      <option value="low">Low</option>
+      <option value="medium" selected>Medium</option>
+      <option value="high">High</option>
+    </select>
+    <button class="btn btn--primary" type="submit">Add</button>
+  </form>
+
+  <div class="filters reveal in">
+    <button class="chip chip--active" data-filter="all">All</button>
+    <button class="chip" data-filter="open">Open</button>
+    <button class="chip" data-filter="done">Done</button>
+  </div>
+
+  <ul id="todo-list" class="todos"></ul>
+  <p id="empty" class="empty muted hidden">Nothing here yet — add your first task above.</p>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

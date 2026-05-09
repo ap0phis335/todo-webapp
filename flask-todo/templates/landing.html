@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Flow — Focus on what matters{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero__inner reveal">
+    <span class="pill">✦ Your day, simplified</span>
+    <h1 class="hero__title">
+      A todo app that <span class="grad">flows</span><br/> with your thinking.
+    </h1>
+    <p class="hero__sub">
+      Capture tasks in seconds. Prioritize what matters. Move through your day
+      with a calm, focused interface designed to get out of your way.
+    </p>
+    <div class="hero__cta">
+      <a href="{{ url_for('signup') }}" class="btn btn--primary btn--lg">Start free →</a>
+      <a href="{{ url_for('login') }}" class="btn btn--ghost btn--lg">I have an account</a>
+    </div>
+    <div class="hero__meta">
+      <span>● Free forever</span><span>● No credit card</span><span>● Setup in 30s</span>
+    </div>
+  </div>
+
+  <div class="hero__preview reveal" style="--delay:.15s">
+    <div class="card glass">
+      <div class="card__row card__row--head">
+        <strong>Today</strong><span class="muted">3 of 5 done</span>
+      </div>
+      <div class="card__row"><span class="check check--on"></span><s>Ship landing page</s></div>
+      <div class="card__row"><span class="check check--on"></span><s>Review PR #482</s></div>
+      <div class="card__row"><span class="check check--on"></span><s>Coffee with Sam</s></div>
+      <div class="card__row"><span class="check"></span>Write resume bullet for Flow</div>
+      <div class="card__row"><span class="check"></span>Sketch onboarding flow</div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  {% for icon, title, desc in [
+    ('⚡','Lightning fast','Vanilla JS frontend, Flask backend. No bloat, just speed.'),
+    ('🔒','Secure by default','Passwords are hashed with Werkzeug. Sessions are server-signed.'),
+    ('🎯','Priority-aware','Tag tasks low / medium / high and stay focused on what counts.')
+  ] %}
+  <article class="feature reveal">
+    <div class="feature__icon">{{icon}}</div>
+    <h3>{{title}}</h3><p>{{desc}}</p>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+{% endblock %}
